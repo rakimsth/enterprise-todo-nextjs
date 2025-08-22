@@ -1,11 +1,10 @@
-
-import { useState, useRef, useEffect } from 'react';
-import { Todo } from '../../types/todo';
-import { useUpdateTodo, useDeleteTodo } from '../../hooks/use-todos';
-import { Button } from '../ui/Button';
-import { Input } from '../ui/Input';
-import { cn } from '../../utils/cn';
-import { APP_CONFIG, ARIA_LABELS } from '../../utils/constants';
+import { useState, useRef, useEffect } from "react";
+import { Todo } from "../../types/todo";
+import { useUpdateTodo, useDeleteTodo } from "../../hooks/use-todos";
+import { Button } from "../ui/Button";
+import { Input } from "../ui/Input";
+import { cn } from "../../utils/cn";
+import { APP_CONFIG, ARIA_LABELS } from "../../utils/constants";
 
 interface TodoItemProps {
   todo: Todo;
@@ -14,7 +13,7 @@ interface TodoItemProps {
 export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(todo.title);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const updateTodo = useUpdateTodo();
   const deleteTodo = useDeleteTodo();
@@ -40,20 +39,20 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const handleStartEdit = () => {
     setIsEditing(true);
     setEditTitle(todo.title);
-    setError('');
+    setError("");
   };
 
   const handleCancelEdit = () => {
     setIsEditing(false);
     setEditTitle(todo.title);
-    setError('');
+    setError("");
   };
 
   const handleSaveEdit = async () => {
-    setError('');
+    setError("");
 
     if (!editTitle.trim()) {
-      setError('Title is required');
+      setError("Title is required");
       return;
     }
 
@@ -74,20 +73,20 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
       });
       setIsEditing(false);
     } catch (err) {
-      setError('Failed to update todo');
+      setError("Failed to update todo");
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSaveEdit();
-    } else if (e.key === 'Escape') {
+    } else if (e.key === "Escape") {
       handleCancelEdit();
     }
   };
 
   const handleDelete = async () => {
-    if (confirm('Are you sure you want to delete this todo?')) {
+    if (confirm("Are you sure you want to delete this todo?")) {
       try {
         await deleteTodo.mutateAsync(todo.id);
       } catch (err) {
@@ -99,10 +98,10 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const isLoading = updateTodo.isPending || deleteTodo.isPending;
 
   return (
-    <div 
+    <div
       className={cn(
-        'flex items-start gap-3 p-4 bg-white rounded-lg border border-gray-200 shadow-sm transition-opacity',
-        isLoading && 'opacity-50'
+        "flex items-start gap-3 p-4 bg-white rounded-lg border border-gray-200 shadow-sm transition-opacity",
+        isLoading && "opacity-50"
       )}
       role="listitem"
     >
@@ -117,7 +116,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
           aria-describedby={`todo-${todo.id}-title`}
         />
       </div>
-      
+
       <div className="flex-1 min-w-0">
         {isEditing ? (
           <div className="space-y-2">
@@ -140,10 +139,8 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
           <span
             id={`todo-${todo.id}-title`}
             className={cn(
-              'block text-sm break-words',
-              todo.completed
-                ? 'line-through text-gray-500'
-                : 'text-gray-900'
+              "block text-sm break-words",
+              todo.completed ? "line-through text-gray-500" : "text-gray-900"
             )}
           >
             {todo.title}

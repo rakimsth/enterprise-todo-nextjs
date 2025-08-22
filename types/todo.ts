@@ -1,8 +1,8 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const TodoSchema = z.object({
   id: z.number().positive(),
-  title: z.string().min(1, 'Title is required').max(200, 'Title too long'),
+  title: z.string().min(1, "Title is required").max(200, "Title too long"),
   completed: z.boolean(),
   userId: z.number().positive().optional(),
 });
@@ -22,4 +22,4 @@ export interface TodosResponse {
   hasMore: boolean;
 }
 
-export type TodoFilter = 'all' | 'completed' | 'pending';
+export type TodoFilter = "all" | "completed" | "pending";

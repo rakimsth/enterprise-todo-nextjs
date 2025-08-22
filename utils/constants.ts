@@ -6,12 +6,12 @@ export const APP_CONFIG = {
 } as const;
 
 export const ARIA_LABELS = {
-  addTodo: 'Add new todo',
-  toggleComplete: 'Toggle todo completion',
-  editTodo: 'Edit todo',
-  deleteTodo: 'Delete todo',
-  cancelEdit: 'Cancel editing',
-  saveEdit: 'Save changes',
-  filterTodos: 'Filter todos',
-  closeModal: 'Close modal',
+  addTodo: "Add new todo",
+  toggleComplete: "Toggle todo completion",
+  editTodo: "Edit todo",
+  deleteTodo: "Delete todo",
+  cancelEdit: "Cancel editing",
+  saveEdit: "Save changes",
+  filterTodos: "Filter todos",
+  closeModal: "Close modal",
 } as const;

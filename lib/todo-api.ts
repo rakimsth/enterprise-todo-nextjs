@@ -1,11 +1,17 @@
-import { Todo, CreateTodoRequest, UpdateTodoRequest, TodoSchema, CreateTodoSchema } from '../types/todo';
-import { apiClient } from './api-client';
+import {
+  Todo,
+  CreateTodoRequest,
+  UpdateTodoRequest,
+  TodoSchema,
+  CreateTodoSchema,
+} from "../types/todo";
+import { apiClient } from "./api-client";
 
 export const todoApi = {
   getTodos: async (limit = 20): Promise<Todo[]> => {
-    const data = await apiClient.get<Todo[]>('/todos');
+    const data = await apiClient.get<Todo[]>("/todos");
     // Validate response data
-    const validatedTodos = data.slice(0, limit).map(todo => TodoSchema.parse(todo));
+    const validatedTodos = data.slice(0, limit).map((todo) => TodoSchema.parse(todo));
     return validatedTodos;
   },
 
@@ -17,19 +23,19 @@ export const todoApi = {
   createTodo: async (todo: CreateTodoRequest): Promise<Todo> => {
     // Validate input
     const validatedInput = CreateTodoSchema.parse(todo);
-    
-    const data = await apiClient.post<Todo>('/todos', {
+
+    const data = await apiClient.post<Todo>("/todos", {
       ...validatedInput,
       userId: 1,
     });
-    
+
     // Return with generated ID for demo purposes
     const newTodo = {
       ...data,
       id: Date.now(),
       ...validatedInput,
     };
-    
+
     return TodoSchema.parse(newTodo);
   },
 
@@ -38,7 +44,7 @@ export const todoApi = {
       ...updateData,
       userId: 1,
     });
-    
+
     return TodoSchema.parse({ ...data, id, ...updateData });
   },
 

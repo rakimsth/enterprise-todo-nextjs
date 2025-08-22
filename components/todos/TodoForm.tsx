@@ -1,10 +1,9 @@
-
-import { useState } from 'react';
-import { useCreateTodo } from '../../hooks/use-todos';
-import { Button } from '../ui/Button';
-import { Input } from '../ui/Input';
-import { Modal } from '../ui/Modal';
-import { APP_CONFIG, ARIA_LABELS } from '../../utils/constants';
+import { useState } from "react";
+import { useCreateTodo } from "../../hooks/use-todos";
+import { Button } from "../ui/Button";
+import { Input } from "../ui/Input";
+import { Modal } from "../ui/Modal";
+import { APP_CONFIG, ARIA_LABELS } from "../../utils/constants";
 
 interface TodoFormProps {
   isOpen: boolean;
@@ -12,16 +11,16 @@ interface TodoFormProps {
 }
 
 export const TodoForm: React.FC<TodoFormProps> = ({ isOpen, onClose }) => {
-  const [title, setTitle] = useState('');
-  const [error, setError] = useState('');
+  const [title, setTitle] = useState("");
+  const [error, setError] = useState("");
   const createTodo = useCreateTodo();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (!title.trim()) {
-      setError('Title is required');
+      setError("Title is required");
       return;
     }
 
@@ -35,18 +34,18 @@ export const TodoForm: React.FC<TodoFormProps> = ({ isOpen, onClose }) => {
         title: title.trim(),
         completed: false,
       });
-      
-      setTitle('');
-      setError('');
+
+      setTitle("");
+      setError("");
       onClose();
     } catch (err) {
-      setError('Failed to create todo. Please try again.');
+      setError("Failed to create todo. Please try again.");
     }
   };
 
   const handleClose = () => {
-    setTitle('');
-    setError('');
+    setTitle("");
+    setError("");
     onClose();
   };
 
@@ -55,7 +54,10 @@ export const TodoForm: React.FC<TodoFormProps> = ({ isOpen, onClose }) => {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="todo-title" className="block text-sm font-medium text-gray-700 mb-2">
-            Title <span className="text-red-500" aria-label="required">*</span>
+            Title{" "}
+            <span className="text-red-500" aria-label="required">
+              *
+            </span>
           </label>
           <Input
             id="todo-title"
@@ -66,7 +68,7 @@ export const TodoForm: React.FC<TodoFormProps> = ({ isOpen, onClose }) => {
             disabled={createTodo.isPending}
             error={error}
             maxLength={APP_CONFIG.maxTitleLength}
-            aria-describedby={error ? 'title-error' : undefined}
+            aria-describedby={error ? "title-error" : undefined}
             autoFocus
           />
           <div className="mt-1 text-xs text-gray-500">
@@ -90,7 +92,7 @@ export const TodoForm: React.FC<TodoFormProps> = ({ isOpen, onClose }) => {
             disabled={!title.trim() || createTodo.isPending}
             aria-label={ARIA_LABELS.addTodo}
           >
-            {createTodo.isPending ? 'Adding...' : 'Add Todo'}
+            {createTodo.isPending ? "Adding..." : "Add Todo"}
           </Button>
         </div>
       </form>
