@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { QueryProvider } from '../components/providers/QueryProvider';
+import { ErrorBoundary } from '../components/layout/ErrorBoundary';
+import { Toaster } from 'react-hot-toast';
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -27,7 +30,32 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+
+        <ErrorBoundary>
+      <QueryProvider>
         {children}
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 3000,
+            style: {
+              background: '#363636',
+              color: '#fff',
+            },
+            success: {
+              style: {
+                background: '#10B981',
+              },
+            },
+            error: {
+              style: {
+                background: '#EF4444',
+              },
+            },
+          }}
+        />
+      </QueryProvider>
+    </ErrorBoundary>
       </body>
     </html>
   );
